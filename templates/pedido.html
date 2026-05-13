@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedidos</title>
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/LOGOU.png') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS CORRECTO -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pedido.css') }}">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="text-center mt-3">
+        <img src="{{ url_for('static', filename='img/LOGOU.png') }}" width="100">
+    </header>
+
+    <div class="container">
+
+        <!-- SALUDO -->
+        <div class="page-header">
+            <h2>👋 Hola {{ nombre }}</h2>
+            <p>Selecciona un producto para hacer tu pedido</p>
+        </div>
+
+       <!-- BOTÓN PUBLICAR -->
+<button type="button" class="boton-publicar" onclick="togglePublicar()">
+    ➕ Publicar producto
+</button>
+
+<!-- FORMULARIO -->
+<div id="formPublicar" style="display:none;" class="card p-3 mb-4">
+
+    <form action="{{ url_for('crear_producto') }}" method="POST" enctype="multipart/form-data">
+
+        <input type="text" name="nombre" class="form-control mb-2" placeholder="Nombre" required>
+
+        <input type="text" name="descripcion" class="form-control mb-2" placeholder="Descripción" required>
+
+        <input type="number" name="precio" class="form-control mb-2" placeholder="Precio" required>
+
+        <input type="text" name="categoria" class="form-control mb-2" placeholder="Categoría" required>
+
+        <input type="file" name="imagen" class="form-control mb-2">
+
+        <button type="submit" class="btn btn-success w-100">
+            Publicar
+        </button>
+
+    </form>
+
+</div>
+
+        <!-- PRODUCTOS -->
+        <div class="productos">
+            {% for p in productos %}
+            <div class="producto">
+
+                <div class="producto-image-container">
+                    {% if p.imagen %}
+                        <img src="{{ url_for('static', filename='uploads/' + p.imagen) }}">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='img/default.png') }}">
+                    {% endif %}
+                </div>
+
+                <h4>{{ p.nombre }}</h4>
+                <p>{{ p.descripcion }}</p>
+                <p class="precio">💰 ${{ p.precio }}</p>
+
+                <button onclick="abrirModal('{{ p.nombre }}')">
+                    🛒 Seleccionar
+                </button>
+
+                {% if session['usuario_id'] == p.usuario_id %}
+
+                <form action="/eliminar_producto/{{ p.id }}" method="POST">
+                    <button class="btn btn-danger mt-2 w-100">🗑️ Eliminar</button>
+                </form>
+
+                <form action="/editar_precio/{{ p.id }}" method="POST" class="mt-2">
+                    <input type="number" name="precio" class="form-control mb-2" placeholder="Nuevo precio">
+                    <button class="btn btn-warning w-100">✏️ Editar precio</button>
+                </form>
+
+                {% endif %}
+
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- NAVEGACIÓN (ARREGLADA) -->
+        <div class="nav-footer">
+            <a href="/pedidos_lista">📋 Ver mis pedidos</a>
+            <a href="/logout" class="secondary">🚪 Cerrar sesión</a>
+        </div>
+
+    </div>
+
+    <!-- MODAL (ARREGLADO) -->
+    <div id="pedidoModal" class="modal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <span class="close" onclick="cerrarModal()">&times;</span>
+                <h3 id="productoNombre">Producto</h3>
+            </div>
+
+            <div class="modal-body">
+                <form method="POST" action="/pedido">
+                    <input type="hidden" name="producto" id="productoInput">
+
+                    <label>📦 Cantidad:</label>
+                    <input type="number" name="cantidad" id="cantidad" min="1" value="1" required>
+
+                    <button type="submit">✨ Confirmar Pedido</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- BOTÓN LUNA -->
+    <button id="btnLuna" onclick="toggleChat()">💬 Preguntale a Luna</button>
+
+    <!-- CHAT -->
+    <div id="chatLuna">
+        <div class="header-chat">
+            <span>LUNA </span>
+            <button onclick="toggleChat()">✖</button>
+        </div>
+
+        <div id="chatBody"></div>
+
+        <div class="chat-input">
+            <input type="text" id="inputLuna" placeholder="Escribe tu mensaje...">
+            <button onclick="enviarMensaje()">Enviar</button>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="{{ url_for('static', filename='js/pedido.js') }}"></script>
+
+    <script>
+        function togglePublicar() {
+            const form = document.getElementById('formPublicar');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+
+</body>
+</html>

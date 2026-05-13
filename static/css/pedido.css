@@ -1,0 +1,419 @@
+/* ===== VARIABLES DE COLOR ESTILO MERCADO LIBRE ===== */
+
+:root{
+    --ml-amarillo: #ffe600;
+    --ml-amarillo-hover: #ffd100;
+    --ml-negro: #333333;
+    --ml-gris: #f5f5f5;
+    --ml-blanco: #ffffff;
+}
+
+/* ===== CONFIGURACIÓN GENERAL ===== */
+
+body{
+    background: var(--ml-gris);
+    color: var(--ml-negro);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ===== HEADER ===== */
+
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.page-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.page-header p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+/* ===== GRID DE PRODUCTOS ===== */
+
+.productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+    padding: 0;
+}
+
+/* ===== TARJETAS DE PRODUCTO ===== */
+
+.producto {
+    background: var(--ml-blanco);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.producto::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--ml-amarillo);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.producto:hover::before {
+    transform: scaleX(1);
+}
+
+.producto:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* ===== IMAGEN DEL PRODUCTO ===== */
+
+.producto-image-container {
+    width: 100%;
+    height: 200px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    background: #fafafa;
+}
+
+.producto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.producto:hover img {
+    transform: scale(1.05);
+}
+
+/* ===== CONTENIDO DEL PRODUCTO ===== */
+
+.producto h4 {
+    margin: 15px 0 10px 0;
+    color: var(--ml-negro);
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.producto p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+/* ===== BOTÓN PRODUCTO ===== */
+
+.producto button {
+    width: 100%;
+    background: var(--ml-amarillo);
+    color: black;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.producto button:hover {
+    background: var(--ml-amarillo-hover);
+    transform: translateY(-2px);
+}
+
+/* ===== MODAL ===== */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+/* ===== CONTENIDO MODAL ===== */
+
+.modal-content {
+    background: white;
+    margin: 8% auto;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+
+/* ===== HEADER MODAL ===== */
+
+.modal-header {
+    background: var(--ml-amarillo);
+    padding: 25px;
+    text-align: center;
+    position: relative;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: black;
+}
+
+/* ===== BOTÓN CERRAR ===== */
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* ===== BODY MODAL ===== */
+
+.modal-body {
+    padding: 30px;
+}
+
+.modal-body form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-body label {
+    font-weight: 600;
+}
+
+.modal-body input[type="number"] {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.modal-body input[type="number"]:focus {
+    outline: none;
+    border-color: var(--ml-amarillo);
+}
+
+/* ===== BOTÓN CONFIRMAR ===== */
+
+.modal-body button[type="submit"] {
+    background: var(--ml-amarillo);
+    color: black;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.modal-body button[type="submit"]:hover {
+    background: var(--ml-amarillo-hover);
+}
+
+/* ===== NAVEGACIÓN INFERIOR ===== */
+
+.nav-footer {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    margin-top: 40px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.nav-footer a {
+    display: inline-block;
+    margin: 0 15px;
+    padding: 12px 28px;
+    background: var(--ml-amarillo);
+    color: black;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.nav-footer a:hover {
+    background: var(--ml-amarillo-hover);
+}
+
+.nav-footer a.secondary {
+    background: white;
+    border: 2px solid var(--ml-amarillo);
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+
+    .productos {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .modal-content {
+        margin: 20% auto;
+        width: 95%;
+    }
+
+    .nav-footer a {
+        display: block;
+        margin: 10px 0;
+    }
+
+}
+
+/* ===== BOTONES DE ACCIONES ===== */
+
+.btn-actualizar {
+    background-color: var(--ml-amarillo);
+    color: black;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.btn-eliminar {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #fbff05;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+/* 🔥 CORREGIDO */
+.btn.btn-primary.btn-block.w-100 {
+    background-color: #fbff05;
+    color: black;
+}
+
+/* ===== BOTÓN PUBLICAR ===== */
+
+.boton-publicar {
+    background-color: #f7d000;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 20px auto;
+}
+
+.boton-publicar:hover {
+    background-color: #e6c200;
+    transform: scale(1.05);
+}
+
+/* ===== PRECIO ===== */
+
+.precio {
+    font-size: 18px;
+    font-weight: bold;
+    color: #28a745;
+    margin-top: 5px;
+}
+
+/* =========================
+   🤖 LUNA CHATBOT (AISLADO)
+========================= */
+
+#btnLuna {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #f7d000;
+    color: #000;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 999;
+}
+
+#chatLuna {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    height: 50vh;
+    background: #fff;
+    border-radius: 15px;
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+#chatLuna * {
+    box-sizing: border-box;
+}
+
+#chatLuna .header-chat {
+    background: #f7d000;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#chatLuna #chatBody {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+#chatLuna .chat-input {
+    display: flex;
+}
+
+#chatLuna .chat-input input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+}
+
+#chatLuna .chat-input button {
+    background: #f7d000;
+    border: none;
+    padding: 10px;
+}
+.modal-body label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+}
